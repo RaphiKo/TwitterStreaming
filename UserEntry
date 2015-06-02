@@ -1,0 +1,23 @@
+########################################################
+########### TwitStreamer ###############################
+########################################################
+
+
+##### user entry #####
+search <- "love, hate, money"
+integrationTime <- 10
+#####################
+
+search.split <- unlist(strsplit(search, split = ","))
+counter.df <- data.frame(Time = rep(0,length(search.split)), searchWord = rep(0,length(search.split))
+                         , Frequency = rep(0,length(search.split)), stringsAsFactors = F)
+timer <- 0
+repeat{
+  timer <- timer + 1
+  counter.df <- TwitStreamer(search, search.split, counter.df, timer, integrationTime)
+  ########################## plotting ######################
+  p <- ggplot(counter.df, aes(x = Time, y = Frequency, fill = searchWord), environment = environment()) 
+  print(p + geom_bar(position = "dodge", colour = "black", stat = "identity") 
+          + geom_text(aes(label = Frequency), vjust = 1.5, colour = "white", position = position_dodge(.9), size = 3))
+  ###########################################################R                      
+}
