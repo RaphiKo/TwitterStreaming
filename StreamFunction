@@ -1,0 +1,35 @@
+########################################################
+####################Streaming Tweets####################
+########################################################
+load("my_oauth.Rdata")
+
+TwitStreamer <- function(search, search.split, counter.df, timer, integrationTime){  #R x ist das Suchwort, Fkt. wird in 5 aufgerufen
+
+#Conflict <- read.csv("ConflictTraining.csv", header = TRUE)
+#Other <- read.csv("OtherTraining.csv", header = TRUE)
+
+
+#R track x eingefügt!!
+tweets <- filterStream(file.name = "", track = search, locations = c(-180, -90, 180, 90), timeout = integrationTime, oauth = my_oauth) #R connect to twitters Streaming API, "" output to variable
+#R gibt mit track 10 mal mehr output!!
+#R location: A comma-separated list of longitude,latitude pairs specifying a set of bounding boxes (ganze Welt ausgewählt!)
+tweets.df <- parseTweets(tweets, verbose = FALSE) #R JSON tweets into R df, wird hier auf der Platte abgespeichert
+
+
+########################## find matches ######################
+counter.df[(length(search.split)*(timer-1)+1):(length(search.split)*(timer-1)+length(search.split)),] <- 0 
+counter.df$Time[(length(search.split)*(timer-1)+1):(length(search.split)*(timer-1)+length(search.split))] <- format(Sys.time(), "%X")
+counter.df$searchWord[(length(search.split)*(timer-1)+1):(length(search.split)*(timer-1)+length(search.split))] <- search.split
+  
+for (i in 1:length(tweets.df$country)){
+  for (j in 1:length(search.split)){
+    if(grepl(search.split[j],  tweets.df$text[i]) == TRUE)
+      counter.df$Frequency[j + (timer-1)*length(search.split)] <- counter.df$Frequency[j + (timer-1)*length(search.split)] + 1
+  }
+}
+###########################################################R
+
+
+
+return(counter.df)
+}
