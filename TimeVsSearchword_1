@@ -1,0 +1,35 @@
+setwd("D:/Users/rapko/R Stream/Twitter_Files")
+
+########################################################
+############### FILE 1 #################################
+########################################################
+
+# Clear the previously used libraries
+rm(list=ls())
+
+########################################################
+############### Load the required R libraries###########
+########################################################
+
+library(twitteR)
+library(ROAuth)
+library(RCurl)
+library(twitteR)
+library(tm)     # siehe auch book automated data collection with R
+library(RColorBrewer)
+library(qdapRegex)
+library(stringr)
+library(plotrix)
+library(rgdal)
+library(ggplot2)
+library(grid)
+library(maps)
+library(streamR)
+library(mapplots)
+library(scales)
+library("dplyr")   # data manipulation
+library("RCurl") # network client interface
+library("rworldmap") # get world map with iso codes
+library("WDI") # World Bank indicators
+library("mapproj") # Converts latitude/longitude into projected coordinates
+library(ggthemes)
