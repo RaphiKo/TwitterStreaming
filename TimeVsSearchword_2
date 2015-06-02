@@ -1,0 +1,29 @@
+########################################################
+############### Connect to Twitter######################
+########################################################
+#download.file(url="http://curl.haxx.se/ca/cacert.pem",destfile="cacert.pem")
+library(twitteR)
+library(ROAuth)
+library(RCurl)
+setwd("D:/Users/rapko/R Stream/Twitter_Files")
+
+requestURL <- "https://api.twitter.com/oauth/request_token"
+accessURL <- "https://api.twitter.com/oauth/access_token"
+authURL <- "https://api.twitter.com/oauth/authorize"
+
+#consumerKey <- "73rFwKuxZlGmbLQCoIaRIwlEO"
+consumerKey <- "b51hIETTeGw1Kn4JPsLXuAcr6"   #R my app
+#consumerSecret <- "YuvRHLFSbuusEqzKXWqL2vBAU9vpqL5P5fGyXFtBeSa0IUWc1I"
+consumerSecret <- "PxoyTARFULDt3o6wswqRH8f2NXOV6LBc4HyY17GpbmmHuXTrIf" #R my app
+twitCred <- OAuthFactory$new(consumerKey=consumerKey,
+                             consumerSecret=consumerSecret,
+                             requestURL=requestURL,
+                             accessURL=accessURL,
+                             authURL=authURL)
+							 # Asking for access
+twitCred$handshake(cainfo="cacert.pem")
+#twitCred$handshake()
+#twitCred$handshake(cainfo = system.file("CurlSSL", "cacert.pem", package = "RCurl")) # this will return the oauth
+#setup_twitter_oauth(consumerKey, consumerSecret, "3068674469-gDbppJKLYFtls8jjG30iDLrk3rQh3T368OCKTV4", "BW6SK02HsAbSeHZ9xaa16HrqDwWSZhRzLR6kN8Pvpf3Qs")
+setup_twitter_oauth(consumerKey, consumerSecret, "3291220065-WKn0E4ySG9nlHTIfUK3jNoBdQZ6G2uIFk2cQj3g", "w4scbbJTu6lFs0yjbnBBm3oJ5pdDitnwUaEkRoB6LN1My") #R my app
+Yes
